@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.c                                       :+:      :+:    :+:   */
+/*   ray2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkaterji <mkaterji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:15:51 by mkaterji          #+#    #+#             */
-/*   Updated: 2025/02/13 20:05:21 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/13 23:25:19 by mkaterji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
+/*
 
 void	calculate_ray_direction(t_cub3d *cub, int x, double *ray_dir_x,
 		double *ray_dir_y)
@@ -70,3 +71,4 @@ void	raycasting(t_cub3d *cub)
 	}
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
 }
+*/

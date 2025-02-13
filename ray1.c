@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_init.c                                      :+:      :+:    :+:   */
+/*   ray1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkaterji <mkaterji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:15:51 by mkaterji          #+#    #+#             */
-/*   Updated: 2025/02/13 20:05:28 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/13 23:25:44 by mkaterji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
+/*
 void	init_player(t_cub3d *cub)
 {
 	cub->player_x = cub->player_x + 0.5;
@@ -45,3 +45,4 @@ void	init_player(t_cub3d *cub)
 		cub->plane_y = -0.66;
 	}
 }
+*/

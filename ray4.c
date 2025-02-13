@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture_loader.c                                   :+:      :+:    :+:   */
+/*   ray4.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkaterji <mkaterji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:15:51 by mkaterji          #+#    #+#             */
-/*   Updated: 2025/02/13 19:38:58 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/13 23:25:56 by mkaterji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
+/*
 void	load_textures(t_cub3d *cub)
 {
 	cub->north_texture.img = mlx_xpm_file_to_image(cub->mlx,
@@ -30,3 +30,4 @@ void	load_textures(t_cub3d *cub)
 		|| !cub->west_texture.img || !cub->east_texture.img)
 		exit_error("Error: Failed to load textures.");
 }
+*/

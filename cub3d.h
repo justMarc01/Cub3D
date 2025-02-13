@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mkaterji <mkaterji@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:24:26 by mkaterji          #+#    #+#             */
-/*   Updated: 2025/02/13 20:24:20 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/13 23:42:07 by mkaterji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void    set_player_position(t_cub3d *cub, char dir, int row, int col);
 int     is_walkable(char c);
 int     is_border(int x, int y, t_cub3d *cub);
 int     adjacent_to_space(int x, int y, t_cub3d *cub);
+void    flood_fill(int x, int y, t_cub3d *cub, int visited[MAX_MAP_HEIGHT][MAX_MAP_WIDTH]);
+int     is_within_bounds(int x, int y, t_cub3d *cub);
 
 //cub3dutils.c
 void	render_floor_ceiling(t_cub3d *cub);
