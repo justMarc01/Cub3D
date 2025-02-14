@@ -6,14 +6,14 @@
 /*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:24:26 by mkaterji          #+#    #+#             */
-/*   Updated: 2025/02/14 18:01:36 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:59:41 by oabdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -22,6 +22,17 @@
 #include <unistd.h>
 #include <fcntl.h>
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 15
+# endif
+
+// GNL
+char	*get_next_line(int fd);
+size_t	ft_strlen_gnl(const char *s);
+char	*ft_strncpy_gnl(char *dest, const char *src, size_t n);
+char	*ft_strchr_gnl(const char *s, int c);
+char	*ft_strdup_gnl(const char *s);
+char	*ft_strjoin_gnl(char *s1, char *s2);
 
 /* ------------------------- */
 /*        DEFINITIONS        */
