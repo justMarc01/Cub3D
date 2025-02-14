@@ -6,11 +6,19 @@
 /*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:24:23 by mkaterji          #+#    #+#             */
-/*   Updated: 2025/02/13 19:17:49 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:07:23 by oabdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	validate_map_dimensions(int row, int col)
+{
+	if (row >= MAX_MAP_HEIGHT)
+		exit_error("Error: Map is too tall.");
+	if (col >= MAX_MAP_WIDTH)
+		exit_error("Error: Map is too wide.");
+}
 
 void	parse_map_line(char *line, t_cub3d *cub, int *map_started)
 {
@@ -19,16 +27,15 @@ void	parse_map_line(char *line, t_cub3d *cub, int *map_started)
 	char		c;
 
 	if (!*map_started)
+	{
 		if (line[0] == '\0' || line[0] == '\n')
 			return ;
+	}
 	*map_started = 1;
-	if (row >= MAX_MAP_HEIGHT)
-		exit_error("Error: Map is too tall.");
 	col = -1;
 	while (line[++col] && line[col] != '\n')
 	{
-		if (col >= MAX_MAP_WIDTH)
-			exit_error("Error: Map is too wide.");
+		validate_map_dimensions(row, col);
 		c = line[col];
 		if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 			set_player_position(cub, c, row, col);
@@ -37,8 +44,11 @@ void	parse_map_line(char *line, t_cub3d *cub, int *map_started)
 		else
 			exit_error("Error: Invalid map character.");
 	}
-	row++, cub->map_height = row, cub->map_width = max(col, cub->map_width);
+	row++;
+	cub->map_height = row;
+	cub->map_width = max(col, cub->map_width);
 }
+
 void	set_player_position(t_cub3d *cub, char dir, int row, int col)
 {
 	if (cub->player_dir != '\0')
@@ -47,19 +57,4 @@ void	set_player_position(t_cub3d *cub, char dir, int row, int col)
 	cub->player_x = col;
 	cub->player_y = row;
 	cub->map[col][row] = '0';
-}
-int	is_walkable(char c)
-{
-	return (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W');
-}
-
-int	is_border(int x, int y, t_cub3d *cub)
-{
-	return (x == 0 || x == cub->map_width - 1 || y == 0 || y == cub->map_height - 1);
-}
-
-int	adjacent_to_space(int x, int y, t_cub3d *cub)
-{
-	return (cub->map[x - 1][y] == ' ' || cub->map[x + 1][y] == ' ' ||
-			cub->map[x][y - 1] == ' ' || cub->map[x][y + 1] == ' ');
 }

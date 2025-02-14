@@ -6,7 +6,7 @@
 /*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 19:15:51 by mkaterji          #+#    #+#             */
-/*   Updated: 2025/02/13 20:29:02 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:16:06 by oabdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,111 +44,6 @@ void init_player(t_cub3d *cub) {
         cub->plane_x = 0;
         cub->plane_y = -0.66;
     }
-}
-
-int raycasting(t_cub3d *cub)
-{
-    render_floor_ceiling(cub);
-    for (int x = 0; x < WINDOW_WIDTH; x++) {
-        double camera_x = -(2 * x / (double)WINDOW_WIDTH - 1);
-        double ray_dir_x = cub->dir_x - cub->plane_x * camera_x;
-        double ray_dir_y = cub->dir_y - cub->plane_y * camera_x;
-        int map_x = (int)cub->player_x;
-        int map_y = (int)cub->player_y;
-        double delta_dist_x = fabs(1 / ray_dir_x);
-        double delta_dist_y = fabs(1 / ray_dir_y);
-        int step_x, step_y;
-        double side_dist_x, side_dist_y;
-
-        if (ray_dir_x < 0) {
-            step_x = -1;
-            side_dist_x = (cub->player_x - map_x) * delta_dist_x;
-        } else {
-            step_x = 1;
-            side_dist_x = (map_x + 1.0 - cub->player_x) * delta_dist_x;
-        }
-
-        if (ray_dir_y < 0) {
-            step_y = -1;
-            side_dist_y = (cub->player_y - map_y) * delta_dist_y;
-        } else {
-            step_y = 1;
-            side_dist_y = (map_y + 1.0 - cub->player_y) * delta_dist_y;
-        }
-
-        int hit = 0;
-        int side;
-        while (hit == 0) {
-            if (side_dist_x < side_dist_y) {
-                side_dist_x += delta_dist_x;
-                map_x += step_x;
-                side = 0;
-            } else {
-                side_dist_y += delta_dist_y;
-                map_y += step_y;
-                side = 1;
-            }
-
-            if (map_x < 0 || map_x >= cub->map_width || map_y < 0 || map_y >= cub->map_height) {
-                hit = 1;
-                break;
-            }
-
-            if (cub->map[map_x][map_y] == '1')
-                hit = 1;
-        }
-        double perp_wall_dist;
-        if (side == 0) {
-            perp_wall_dist = (map_x - cub->player_x + (1 - step_x) / 2) / ray_dir_x;
-        } else {
-            perp_wall_dist = (map_y - cub->player_y + (1 - step_y) / 2) / ray_dir_y;
-        }
-
-        int line_height = (int)(WINDOW_HEIGHT / perp_wall_dist);
-
-        int draw_start = -line_height / 2 + WINDOW_HEIGHT / 2;
-        if (draw_start < 0) draw_start = 0;
-        int draw_end = line_height / 2 + WINDOW_HEIGHT / 2;
-        if (draw_end >= WINDOW_HEIGHT) draw_end = WINDOW_HEIGHT - 1;
-
-        double wall_x;
-        if (side == 0) {
-            wall_x = cub->player_y + perp_wall_dist * ray_dir_y;
-        } else {
-            wall_x = cub->player_x + perp_wall_dist * ray_dir_x;
-        }
-        wall_x -= floor(wall_x);
-
-        t_texture *texture;
-        if (side == 0) {
-            texture = (ray_dir_x > 0) ? &cub->east_texture : &cub->west_texture;
-        } else {
-            texture = (ray_dir_y > 0) ? &cub->south_texture : &cub->north_texture;
-        }
-
-        int tex_x = (int)(wall_x * (double)texture->width);
-        if (side == 0 && ray_dir_x > 0) tex_x = texture->width - tex_x - 1;
-        if (side == 1 && ray_dir_y < 0) tex_x = texture->width - tex_x - 1;
-
-        if (tex_x < 0 || tex_x >= texture->width) {
-            fprintf(stderr, "Error: tex_x out of bounds (%d)\n", tex_x);
-            exit(EXIT_FAILURE);
-        }
-        for (int y = draw_start; y < draw_end; y++) {
-            int relative_y = y - draw_start;
-            float percent = (float)relative_y / (float)(draw_end - draw_start);
-            int tex_y = (int)(percent * (texture->height - 1));
-
-            if (tex_y < 0) tex_y = 0;
-            else if (tex_y >= texture->height) tex_y = texture->height - 1;
-
-            int color = *(unsigned int *)(texture->addr + (tex_y * texture->line_length + tex_x * (texture->bits_per_pixel / 8)));
-            int pixel_index = y * cub->line_length + x * (cub->bits_per_pixel / 8);
-            *(unsigned int *)(cub->addr + pixel_index) = color;
-        }
-    }
-    mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
-    return 0;
 }
 
 void load_textures(t_cub3d *cub) {

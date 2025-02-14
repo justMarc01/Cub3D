@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkaterji <mkaterji@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:24:26 by mkaterji          #+#    #+#             */
-/*   Updated: 2025/02/13 23:42:07 by mkaterji         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:21:41 by oabdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 #define WINDOW_HEIGHT 600
 #define TEX_WIDTH 64
 #define TEX_HEIGHT 64
+# define TILE_SIZE 20
 
 typedef struct {
     void *img;
@@ -96,7 +97,6 @@ int     is_within_bounds(int x, int y, t_cub3d *cub);
 //cub3dutils.c
 void	render_floor_ceiling(t_cub3d *cub);
 void	load_textures(t_cub3d *cub);
-void	perform_dda(t_cub3d *cub, int *map_x, int *map_y, int *side);
 void	calculate_ray_direction(t_cub3d *cub, int x, double *ray_dir_x,
     double *ray_dir_y);
 void	init_player(t_cub3d *cub);
@@ -129,6 +129,27 @@ int key_press(int keycode, void *param);
 int key_release(int keycode, void *param);
 void move_right(t_cub3d *cub);
 void move_left(t_cub3d *cub);
+
+//utils.c
+void	*ft_memset(void *s, int c, size_t n);
+
+//valid_map_utils.c
+int	is_texture(char *line);
+int	is_color(char *line);
+int	max(int a, int b);
+int	is_within_bounds(int x, int y, t_cub3d *cub);
+int	ft_strncmp(const char *s1, const char *s2, size_t n);
+
+//ray_casting_1.c
+void setup_ray(t_cub3d *cub, int x, double *ray_dir, int *map);
+void calculate_deltas(double ray_dir_x, double ray_dir_y, double *delta);
+void calculate_steps(t_cub3d *cub, double ray_dir_x, double ray_dir_y,
+                          int *step, double *side_dist, double *delta);
+void perform_dda(t_cub3d *cub, int *map, int *step,
+                           double *side_dist, double *delta, int *side);
+void calculate_wall_dist(t_cub3d *cub, int side, int *map, int *step,
+                               double *ray_dir, double *perp_dist);
+
 #endif
 
 
