@@ -6,7 +6,7 @@
 /*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:24:26 by mkaterji          #+#    #+#             */
-/*   Updated: 2025/02/14 18:59:41 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/14 19:08:45 by oabdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <string.h>
 # include <ctype.h>
 # include <math.h>
-#include <unistd.h>
-#include <fcntl.h>
+# include <unistd.h>
+# include <fcntl.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 15
@@ -157,7 +157,7 @@ int		raycasting(t_cub3d *cub);
 void	init_mlx(t_cub3d *cub);
 void	error_exit(const char *message);
 int		ft_strlen(const char *s);
-void	ft_putstr_fd(const char *s, int fd, char* arg);
+void	ft_putstr_fd(const char *s, int fd, char *arg);
 void	draw_map(t_cub3d *cub);
 int		close_window(t_cub3d *cub);
 void	free_resources(t_cub3d *cub);
