@@ -1,7 +1,7 @@
-NO ./textures/north_texture.xpm
-SO ./textures/south_texture.xpm
-WE ./textures/west_texture.xpm
-EA ./textures/east_texture.xpm
+NO ./textures/brickWall.xpm
+SO ./textures/brickWall.xpm
+WE ./textures/brickWall.xpm
+EA ./textures/brickWall.xpm
 
 F 154, 123, 80
 C 157, 146, 92
@@ -17,6 +17,6 @@ C 157, 146, 92
 11000000110101011100000010001
 10000000000000001100000000001
 10000000000000001101010010001
-1100000111010101111101111000111
+11000001110101011111011110001
 11110111 1110101 101111010001
 11111111 1111111 111111111111
