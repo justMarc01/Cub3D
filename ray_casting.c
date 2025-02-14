@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 14:15:24 by oabdelka          #+#    #+#             */
-/*   Updated: 2025/02/14 14:54:43 by oabdelka         ###   ########.fr       */
+/*   Created: 2025/02/14 16:14:10 by oabdelka          #+#    #+#             */
+/*   Updated: 2025/02/14 16:18:54 by oabdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,72 +31,57 @@ static void	get_wall_texture(t_cub3d *cub, int side, double *ray_dir,
 	}
 }
 
-static void	draw_vertical_line(t_cub3d *cub, int x, t_texture *tex,
-		int tex_x, int draw_start, int draw_end)
+static void	draw_vertical_line(t_cub3d *cub, int x, t_ray_data *data)
 {
-	int	y;
-	int	tex_y;
-	int	relative_y;
+	int		y;
+	int		tex_y;
 	float	percent;
-	int	color;
-	int	px_idx;
+	int		color;
+	int		px_idx;
 
-	y = draw_start;
-	while (y < draw_end)
+	y = data->draw_start;
+	while (y < data->draw_end)
 	{
-		relative_y = y - draw_start;
-		percent = (float)relative_y / (draw_end - draw_start);
-		tex_y = (int)(percent * (tex->height - 1));
+		percent = (float)(y - data->draw_start)
+			/ (data->draw_end - data->draw_start);
+		tex_y = (int)(percent * (data->tex->height - 1));
 		if (tex_y < 0)
 			tex_y = 0;
-		else if (tex_y >= tex->height)
-			tex_y = tex->height - 1;
-		color = *(unsigned int *)(tex->addr
-				+ (tex_y * tex->line_length
-				+ tex_x * (tex->bits_per_pixel / 8)));
+		else if (tex_y >= data->tex->height)
+			tex_y = data->tex->height - 1;
+		color = *(unsigned int *)(data->tex->addr
+				+ (tex_y * data->tex->line_length
+					+ data->tex_x * (data->tex->bits_per_pixel / 8)));
 		px_idx = y * cub->line_length + x * (cub->bits_per_pixel / 8);
 		*(unsigned int *)(cub->addr + px_idx) = color;
 		y++;
 	}
 }
 
-static void	process_raycasting(t_cub3d *cub, int x)
+static void	init_ray_data(t_ray_data *data)
 {
-	double		ray_dir[2];
-	int			map[2];
-	double		delta[2];
-	int			step[2];
-	double		side_dist[2];
-	int			side;
-	double		perp_dist;
-	int			line_height;
-	int			draw_start;
-	int			draw_end;
-	t_texture	*tex;
-	int			tex_x;
-	t_ray_info	ray_info;
-
-	setup_ray(cub, x, ray_dir, map);
-	calculate_deltas(ray_dir[0], ray_dir[1], delta);
-	calculate_steps(cub, ray_dir[0], ray_dir[1], step, side_dist, delta);
-	perform_dda(cub, map, step, side_dist, delta, &side);
-	calculate_wall_dist(cub, side, map, step, ray_dir, &perp_dist);
-	calculate_line_height(perp_dist, &line_height);
-	calculate_draw_range(line_height, &draw_start, &draw_end);
-	get_wall_texture(cub, side, ray_dir, &tex);
-
-	/* Initialize ray_info struct */
-	ray_info.perp_dist = perp_dist;
-	ray_info.side = side;
-	ray_info.ray_dir = ray_dir;
-	ray_info.tex = &tex;
-
-	/* Pass struct instead of separate arguments */
-	calculate_texture_x(cub, &ray_info, &tex_x);
-
-	draw_vertical_line(cub, x, tex, tex_x, draw_start, draw_end);
+	bzero(data, sizeof(t_ray_data));
 }
 
+static void	process_raycasting(t_cub3d *cub, int x)
+{
+	t_ray_data	data;
+
+	init_ray_data(&data);
+	setup_ray(cub, x, data.ray_dir, data.map);
+	calculate_deltas(data.ray_dir[0], data.ray_dir[1], data.delta);
+	calculate_steps(cub, data.ray_dir[0], data.ray_dir[1], data.step,
+		data.side_dist, data.delta);
+	perform_dda(cub, data.map, data.step, data.side_dist,
+		data.delta, &data.side);
+	calculate_wall_dist(cub, data.side, data.map, data.step,
+		data.ray_dir, &data.perp_dist);
+	calculate_line_height(data.perp_dist, &data.line_height);
+	calculate_draw_range(data.line_height, &data.draw_start, &data.draw_end);
+	get_wall_texture(cub, data.side, data.ray_dir, &data.tex);
+	calculate_texture_x(cub, &data, &data.tex_x);
+	draw_vertical_line(cub, x, &data);
+}
 
 int	raycasting(t_cub3d *cub)
 {

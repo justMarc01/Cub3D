@@ -6,7 +6,7 @@
 /*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 14:38:36 by oabdelka          #+#    #+#             */
-/*   Updated: 2025/02/14 14:47:04 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:12:47 by oabdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@ void	calculate_draw_range(int line_height, int *draw_start,
 		*draw_end = WINDOW_HEIGHT - 1;
 }
 
-void	calculate_texture_x(t_cub3d *cub, t_ray_info *ray_info, int *tex_x)
+void	calculate_texture_x(t_cub3d *cub, t_ray_data *data, int *tex_x)
 {
 	double	wall_x;
 
-	if (ray_info->side == 0)
-		wall_x = cub->player_y + ray_info->perp_dist * ray_info->ray_dir[1];
+	if (data->side == 0)
+		wall_x = cub->player_y + data->perp_dist * data->ray_dir[1];
 	else
-		wall_x = cub->player_x + ray_info->perp_dist * ray_info->ray_dir[0];
+		wall_x = cub->player_x + data->perp_dist * data->ray_dir[0];
 	wall_x -= floor(wall_x);
-	*tex_x = (int)(wall_x * (double)(*ray_info->tex)->width);
-	if ((ray_info->side == 0 && ray_info->ray_dir[0] > 0)
-		|| (ray_info->side == 1 && ray_info->ray_dir[1] < 0))
-		*tex_x = (*ray_info->tex)->width - *tex_x - 1;
+	*tex_x = (int)(wall_x * (double)(data->tex)->width);
+	if ((data->side == 0 && data->ray_dir[0] > 0)
+		|| (data->side == 1 && data->ray_dir[1] < 0))
+		*tex_x = (data->tex)->width - *tex_x - 1;
 }

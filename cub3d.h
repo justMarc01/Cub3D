@@ -6,7 +6,7 @@
 /*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:24:26 by mkaterji          #+#    #+#             */
-/*   Updated: 2025/02/14 14:47:47 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:12:32 by oabdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,22 @@ typedef struct {
     int line_length;
     int endian;
 } t_texture;
+
+typedef struct s_ray_data
+{
+	double		ray_dir[2];
+	int			map[2];
+	double		delta[2];
+	int			step[2];
+	double		side_dist[2];
+	int			side;
+	double		perp_dist;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	t_texture	*tex;
+	int			tex_x;
+}	t_ray_data;
 
 typedef struct s_ray_info
 {
@@ -162,7 +178,8 @@ void calculate_wall_dist(t_cub3d *cub, int side, int *map, int *step,
 void calculate_line_height(double perp_dist, int *line_height);
 void calculate_draw_range(int line_height, int *draw_start,
                               int *draw_end);
-void	calculate_texture_x(t_cub3d *cub, t_ray_info *ray_info, int *tex_x);
+void calculate_texture_x(t_cub3d *cub, t_ray_data *ray_data, int *tex_x);
+
 
 
 
