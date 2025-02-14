@@ -6,7 +6,7 @@
 /*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 20:57:14 by mkaterji          #+#    #+#             */
-/*   Updated: 2025/02/14 13:29:39 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:14:19 by oabdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,13 @@ void	init_mlx(t_cub3d *cub)
 {
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
-	{
-		fprintf(stderr, "Error: Failed to initialize minilibX.\n");
-		exit(EXIT_FAILURE);
-	}
-	cub->win = mlx_new_window(cub->mlx, WINDOW_WIDTH,
-			WINDOW_HEIGHT, "cub3D");
+		error_exit("Error: Failed to initialize minilibX.");
+	cub->win = mlx_new_window(cub->mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "cub3D");
 	if (!cub->win)
-	{
-		fprintf(stderr, "Error: Failed to create window.\n");
-		exit(EXIT_FAILURE);
-	}
+		error_exit("Error: Failed to create window.");
 	cub->img = mlx_new_image(cub->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!cub->img)
-	{
-		fprintf(stderr, "Error: Failed to create image.\n");
-		exit(EXIT_FAILURE);
-	}
+		error_exit("Error: Failed to create image.");
 	cub->addr = mlx_get_data_addr(cub->img, &cub->bits_per_pixel,
 			&cub->line_length, &cub->endian);
 }

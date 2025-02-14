@@ -6,7 +6,7 @@
 /*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:27:25 by oabdelka          #+#    #+#             */
-/*   Updated: 2025/02/14 14:09:04 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:27:39 by oabdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		fprintf(stderr, "Usage: %s <map.cub>\n", argv[0]);
+		ft_putstr_fd("Usage: ./cub3d <map.cub>\n", 2, NULL);
 		return (EXIT_FAILURE);
 	}
 	ft_memset(&cub, 0, sizeof(t_cub3d));

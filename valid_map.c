@@ -6,7 +6,7 @@
 /*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:24:23 by mkaterji          #+#    #+#             */
-/*   Updated: 2025/02/14 14:12:11 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:06:32 by oabdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	validate_map(t_cub3d *cub)
 {
-	int	visited[MAX_MAP_HEIGHT][MAX_MAP_WIDTH] = {0};
+	int	visited[MAX_MAP_HEIGHT][MAX_MAP_WIDTH];
 	int	x;
 	int	y;
 
+	ft_memset(visited, 0, sizeof(visited));
 	flood_fill((int)cub->player_x, (int)cub->player_y, cub, visited);
 	y = 0;
 	while (y < cub->map_height)
