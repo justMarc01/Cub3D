@@ -6,7 +6,7 @@
 /*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 18:24:26 by mkaterji          #+#    #+#             */
-/*   Updated: 2025/02/14 16:12:32 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:46:07 by oabdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,15 +164,17 @@ int	max(int a, int b);
 int	is_within_bounds(int x, int y, t_cub3d *cub);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 
+//ray_casting.c
+void	init_ray_data(t_ray_data *data);
+
+
 //ray_casting_1.c
-void setup_ray(t_cub3d *cub, int x, double *ray_dir, int *map);
-void calculate_deltas(double ray_dir_x, double ray_dir_y, double *delta);
-void calculate_steps(t_cub3d *cub, double ray_dir_x, double ray_dir_y,
-                          int *step, double *side_dist, double *delta);
-void perform_dda(t_cub3d *cub, int *map, int *step,
-                           double *side_dist, double *delta, int *side);
-void calculate_wall_dist(t_cub3d *cub, int side, int *map, int *step,
-                               double *ray_dir, double *perp_dist);
+void	setup_ray(t_cub3d *cub, int x, t_ray_data *ray);
+void	calculate_deltas(t_ray_data *ray);
+void	calculate_steps(t_cub3d *cub, t_ray_data *ray);
+void	perform_dda(t_cub3d *cub, t_ray_data *ray);
+void	calculate_wall_dist(t_cub3d *cub, t_ray_data *ray);
+
 
 //ray_casting_2.c
 void calculate_line_height(double perp_dist, int *line_height);

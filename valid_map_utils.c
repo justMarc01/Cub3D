@@ -6,7 +6,7 @@
 /*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:32:03 by oabdelka          #+#    #+#             */
-/*   Updated: 2025/02/14 14:12:30 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:47:54 by oabdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	is_texture(char *line)
 {
-	if (strncmp(line, "NO", 2) == 0
-		|| strncmp(line, "SO", 2) == 0
-		|| strncmp(line, "WE", 2) == 0
-		|| strncmp(line, "EA", 2) == 0)
+	if (ft_strncmp(line, "NO", 2) == 0
+		|| ft_strncmp(line, "SO", 2) == 0
+		|| ft_strncmp(line, "WE", 2) == 0
+		|| ft_strncmp(line, "EA", 2) == 0)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: oabdelka <oabdelka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:14:10 by oabdelka          #+#    #+#             */
-/*   Updated: 2025/02/14 16:18:54 by oabdelka         ###   ########.fr       */
+/*   Updated: 2025/02/14 16:45:27 by oabdelka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ static void	draw_vertical_line(t_cub3d *cub, int x, t_ray_data *data)
 	}
 }
 
-static void	init_ray_data(t_ray_data *data)
+void	init_ray_data(t_ray_data *data)
 {
-	bzero(data, sizeof(t_ray_data));
+	ft_memset(data, 0, sizeof(t_ray_data));
 }
 
 static void	process_raycasting(t_cub3d *cub, int x)
@@ -68,14 +68,11 @@ static void	process_raycasting(t_cub3d *cub, int x)
 	t_ray_data	data;
 
 	init_ray_data(&data);
-	setup_ray(cub, x, data.ray_dir, data.map);
-	calculate_deltas(data.ray_dir[0], data.ray_dir[1], data.delta);
-	calculate_steps(cub, data.ray_dir[0], data.ray_dir[1], data.step,
-		data.side_dist, data.delta);
-	perform_dda(cub, data.map, data.step, data.side_dist,
-		data.delta, &data.side);
-	calculate_wall_dist(cub, data.side, data.map, data.step,
-		data.ray_dir, &data.perp_dist);
+	setup_ray(cub, x, &data);
+	calculate_deltas(&data);
+	calculate_steps(cub, &data);
+	perform_dda(cub, &data);
+	calculate_wall_dist(cub, &data);
 	calculate_line_height(data.perp_dist, &data.line_height);
 	calculate_draw_range(data.line_height, &data.draw_start, &data.draw_end);
 	get_wall_texture(cub, data.side, data.ray_dir, &data.tex);
